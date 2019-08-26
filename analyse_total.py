@@ -21,7 +21,7 @@ __version__ = "0.1.0"
 @click.command()
 @click.argument('path', type=click.Path(exists=True))
 @click.option('--mode', type=click.Choice(['from_folder', 'from_files']),
-              help='If from_folder is selected, DIR must be a path to the csv file of the single'
+              help='If from_folder is selected, PATH must contain all csv files of the single'
                    'sequences. All statistics will be calculated from the data. If from_files is '
                    'selected, DIR must be a path to a folder where csv files with the combined '
                    'computed statistics are located.')

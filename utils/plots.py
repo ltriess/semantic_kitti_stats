@@ -33,6 +33,7 @@ def draw_distance_and_label_matrix(matrix: np.array, save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
 
 
 def draw_azimuth_and_label_matrix(matrix: np.array, save_dir: str=None):
@@ -66,6 +67,7 @@ def draw_azimuth_and_label_matrix(matrix: np.array, save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
 
 
 def draw_elevation_and_label_matrix(matrix: np.array, save_dir: str=None):
@@ -100,6 +102,7 @@ def draw_elevation_and_label_matrix(matrix: np.array, save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
 
 
 def draw_points_per_distance(ppd: np.array, save_dir: str=None):
@@ -120,6 +123,7 @@ def draw_points_per_distance(ppd: np.array, save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
 
 
 def draw_points_per_label(ppl: np.array, save_dir: str=None):
@@ -140,6 +144,7 @@ def draw_points_per_label(ppl: np.array, save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
 
 
 def draw_distance_and_sequence_matrix(matrix: np.array, save_dir: str=None):
@@ -168,6 +173,7 @@ def draw_distance_and_sequence_matrix(matrix: np.array, save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
 
 
 def draw_label_and_sequence_matrix(matrix: np.array, save_dir: str=None):
@@ -197,6 +203,7 @@ def draw_label_and_sequence_matrix(matrix: np.array, save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
 
 
 def draw_sequence_length(save_dir: str=None):
@@ -224,3 +231,4 @@ def draw_sequence_length(save_dir: str=None):
         plt.show()
     else:
         plt.savefig(save_dir)
+        plt.close()
