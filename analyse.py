@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Separate analysis of Semantic KITTI sequences."""
+"""Separate analysis of Semantic KITTI sequences and total statistics."""
 
 import os
 import sys
@@ -17,7 +17,7 @@ from utils import plots, get_distance_label_stats, get_angle_label_stats
 __author__ = "Larissa Triess"
 __copyright__ = "Copyright 2019, Larissa Triess"
 __license__ = "MIT"
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 
 @click.command()
@@ -26,11 +26,14 @@ __version__ = "0.1.0"
               help='If compute is selected, PATH must be the path to the dataset. All statistics '
                    'will be calculated from the data. If from_data is selected, PATH must be a '
                    'a folder in which csv files with the computed statistics are located.')
-@click.option('--save_dir', type=click.Path(dir_okay=True), default=None,
+@click.option('--save_dir', type=click.Path(dir_okay=True),
               help='Path where to save the generated graphs. If not provided, show on display.')
 def analyse(path, mode, save_dir):
 
     sequence_folder = os.path.join(path, 'dataset', 'sequences')
+
+    # placeholder for overall stats
+    pplds = np.zeros([11, get_num_learning_labels(), len(distance_bins)], dtype=np.int64)
 
     # iterate over all train/val sequences
     for s in range(11):
@@ -108,6 +111,8 @@ def analyse(path, mode, save_dir):
         else:
             raise ValueError
 
+        pplds[s] = points_per_label_distance
+
         # visualize the data
         plots.draw_distance_and_label_matrix(
             points_per_label_distance,
@@ -129,6 +134,45 @@ def analyse(path, mode, save_dir):
             points_per_label_elevation,
             save_dir=os.path.join(save_dir, '{:02d}_elevation_label_matrix'.format(s))
             if save_dir is not None else None)
+
+    print('\n')
+    print('Finished all sequences. Starting total analysis...')
+
+    ppld = np.sum(pplds, axis=0)  # total points per label distance
+    ppl = np.sum(ppld, axis=1)  # total points per label
+    ppd = np.sum(ppld, axis=0)  # total points per distance
+
+    ppds = np.sum(pplds, axis=1)  # points per distance sequence
+    ppls = np.sum(pplds, axis=2)  # points per label sequence
+
+    # save the data
+    if save_dir is not None:
+        np.savetxt(os.path.join(save_dir, 'total_distance_label_matrix.csv'), ppld, delimiter=',')
+        np.savetxt(os.path.join(save_dir, 'total_points_per_distance.csv'), ppd, delimiter=',')
+        np.savetxt(os.path.join(save_dir, 'total_points_per_label.csv'), ppl, delimiter=',')
+
+        np.savetxt(os.path.join(save_dir, 'sequence_distance_matrix.csv'), ppds, delimiter=',')
+        np.savetxt(os.path.join(save_dir, 'sequence_label_matrix.csv'), ppls, delimiter=',')
+
+    # visualize the data
+    plots.draw_distance_and_label_matrix(
+        ppld, save_dir=os.path.join(save_dir, 'total_distance_label_matrix')
+        if save_dir is not None else None)
+    plots.draw_points_per_distance(
+        ppd, save_dir=os.path.join(save_dir, 'total_points_per_distance')
+        if save_dir is not None else None)
+    plots.draw_points_per_label(
+        ppl, save_dir=os.path.join(save_dir, 'total_points_per_label')
+        if save_dir is not None else None)
+
+    plots.draw_distance_and_sequence_matrix(
+        ppds, save_dir=os.path.join(save_dir, 'sequence_distance_matrix')
+        if save_dir is not None else None)
+    plots.draw_label_and_sequence_matrix(
+        ppls, save_dir=os.path.join(save_dir, 'sequence_label_matrix')
+        if save_dir is not None else None)
+    plots.draw_sequence_length(
+        save_dir=os.path.join(path, 'sequence_length') if save_dir is not None else None)
 
 
 if __name__ == '__main__':

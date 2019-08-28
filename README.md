@@ -1,7 +1,8 @@
 # Semantic KITTI Dataset Statistics
 
-This repository contains two scripts that allow an analysis of the 
-[Semantic KITTI Dataset](http://semantic-kitti.org/) [1,2] and creates some plots.
+This repository holds a script that allows an analysis of the [Semantic KITTI Dataset](http://semantic-kitti.org/) [1,2].
+The main focus is on distance and label analysis.
+For all statistics a csv file and a plot are generated.
 
 Some Examples:
 * see which label has how many points over the distance
@@ -43,20 +44,7 @@ Download the data and unzip it in the same folder.
 
 ## Running the code
 
-There are two different scripts: `analyse_total.py` can only be run when the data was previously generated with `analyse_sequence.py`.
-The latter one gives separate analysis of all trainval sequences.
-A total evaluation based on the computed per sequence statistics can be generated with the first script.
-
-`analyse_sequence.py` can be called with the path to the root directory of the dataset if _mode_ is selected as _compute_.
-The root directory contains the folders dataset/sequences/{00..10}/{velodyne,labels} and
-dataset/sequences/{11..21}/velodyne as extracted after downloading the dataset.
-In _mode_ _compute_ all the statistics will first be calculated before being plotted.
-Set _save_dir_ to a valid path in order to save the calculated statistics to csv files.
-In case you already computed all the data and just want to redo the plots, the script must be called with a path where 
-all the generated csv files with the statistics are located and _mode_ must be set to _from_data_.
-In both cases, if _save_dir_ is set, the plots are saved as png files to the specified location.
-
-Take a look at the description of the file with `python analyse_total.py --help`.
+The main script is `analyse.py` which can be called according to
 
 ```
 Usage: analyse_sequence.py [OPTIONS] PATH
@@ -70,20 +58,19 @@ Options:
   --help                      Show this message and exit.
 ```
 
-`analyse_total.py` is similarly parametrized as above. Take a look at the help description.
+The script first iterates over all trainval sequences and generates separate statistics for each sequence.
+Finally, all the sequence statistics are combined and a total analysis as well as a sequence overview is generated.
+There are two modes in which the script dan be called:
 
-```
-Usage: analyse_total.py [OPTIONS] PATH
+* _compute_: PATH must point to the root directory of the dataset which contains the folders
+dataset/sequences/{00..10}/{velodyne/labels} according to how the dataset is extracted after the download.
+All statistics will be computed from the dataset and then plots will be generated.
+If _save_dir_ is set to a valid path, all the statistics will be saved to csv files for later usage.
+* _from_data_: PATH must point to the folder in which all the generated csv files are located.
+This is useful when the statistics are available, but a redo of the plots is needed.
 
-Options:
-  --mode [from_folder|from_files]   If from_folder is selected, PATH must must contain all csv files
-                                    of the single sequences. All statistics will be calculated from
-                                    the data. If from_files is selected, DIR must be a path to a 
-                                    folder where csv files with the combined computed statistics 
-                                    are located.
-  --save                            If True, save to PATH.
-  --help                            Show this message and exit.
-```
+In both modes, if _save_dir_ is set, the plots are saved as png files to the specified location.
+If it is not set, the plots will be displayed on the screen.
 
 ## License
 
