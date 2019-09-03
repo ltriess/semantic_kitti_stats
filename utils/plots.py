@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+__author__ = """Larissa Triess"""
+__email__ = 'larissa@triess.eu'
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors

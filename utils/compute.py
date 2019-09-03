@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+__author__ = """Larissa Triess"""
+__email__ = 'larissa@triess.eu'
+
 import numpy as np
 
 from data import distance_bins, azimuth_bins, elevation_bins, get_num_learning_labels

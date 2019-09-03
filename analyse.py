@@ -3,6 +3,9 @@
 
 """Separate analysis of Semantic KITTI sequences and total statistics."""
 
+__author__ = """Larissa Triess"""
+__email__ = 'larissa@triess.eu'
+
 import os
 import sys
 
@@ -12,12 +15,6 @@ import click
 from data import distance_bins, azimuth_bins, elevation_bins, load_data_points, load_data_labels, \
     get_num_learning_labels, map_learning
 from utils import plots, get_distance_label_stats, get_angle_label_stats
-
-
-__author__ = "Larissa Triess"
-__copyright__ = "Copyright 2019, Larissa Triess"
-__license__ = "MIT"
-__version__ = "0.2.0"
 
 
 @click.command()
