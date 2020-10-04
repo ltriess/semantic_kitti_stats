@@ -1,4 +1,5 @@
 # Semantic KITTI Dataset Statistics
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 This repository holds a script that allows an analysis of the [Semantic KITTI Dataset](http://semantic-kitti.org/) [1,2].
 The main focus is on distance and label analysis.
@@ -77,7 +78,7 @@ If it is not set, the plots will be displayed on the screen.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## References
-[1] J. Behley and M. Garbade and A. Milioto and J. Quenzel and S. Behnke and C. Stachniss and J. Gall, 
+[1] J. Behley and M. Garbade and A. Milioto and J. Quenzel and S. Behnke and C. Stachniss and J. Gall,
 "SemanticKITTI: A Dataset for Semantic Scene Understanding of LiDAR Sequences", ICCV 2019
 
 [2] A. Geiger and P. Lenz and C. Stiller and R. Urtasun, Vision meets Robotics: The KITTI Dataset, IJRR 2013
